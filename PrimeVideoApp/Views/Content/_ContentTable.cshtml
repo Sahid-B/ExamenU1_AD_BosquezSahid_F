@@ -1,0 +1,45 @@
+@model PrimeVideoApp.Models.PaginatedList<PrimeVideoApp.Models.Content>
+
+<div id="content-table-content" data-page="@Model.PageIndex">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>SourceId</th>
+                <th>ContentType</th>
+                <th>Title</th>
+                <th>DateAdded</th>
+                <th>ReleaseYear</th>
+                <th>Rating</th>
+                <th>DurationValue</th>
+                <th>DurationUnit</th>
+                <th>DurationText</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.SourceId)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ContentType)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DateAdded)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ReleaseYear)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Rating)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DurationValue)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DurationUnit)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DurationText)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <partial name="_Pagination" model="Model" />
+</div>

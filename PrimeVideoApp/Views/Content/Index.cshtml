@@ -1,0 +1,44 @@
+@model PrimeVideoApp.Models.PaginatedList<PrimeVideoApp.Models.Content>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>
+    Index
+    <span id="realtime-status" class="badge bg-secondary fs-6">Conectando...</span>
+</h1>
+
+@if (ViewBag.Stats != null)
+{
+    <div style="margin-bottom: 20px; padding: 10px; border: 1px solid #ccc;">
+        <p><strong>Películas:</strong> @ViewBag.Stats.MovieCount</p>
+        <p><strong>Series:</strong> @ViewBag.Stats.TvShowCount</p>
+        <p><strong>Total:</strong> @(ViewBag.Stats.MovieCount + ViewBag.Stats.TvShowCount)</p>
+        <p><strong>Géneros con más contenido:</strong>
+            @if (ViewBag.Stats.GenreStats.Count > 0)
+            {
+                <text>@ViewBag.Stats.GenreStats[0].Name (@ViewBag.Stats.GenreStats[0].Count)</text>
+            }
+        </p>
+        <p><strong>Año con más lanzamientos:</strong>
+            @if (ViewBag.Stats.YearStats.Count > 0)
+            {
+                <text>@ViewBag.Stats.YearStats[0].Year (@ViewBag.Stats.YearStats[0].Count)</text>
+            }
+        </p>
+    </div>
+}
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<div id="content-table">
+    <partial name="_ContentTable" model="Model" />
+</div>
+
+@section Scripts {
+    <script src="~/lib/signalr/signalr.min.js"></script>
+    <script src="~/js/content-realtime.js" asp-append-version="true"></script>
+}
